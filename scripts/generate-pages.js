@@ -1,5 +1,5 @@
 import fs from 'node:fs';import path from 'node:path';
-const out=path.resolve('public'),base='https://simple-tools.pages.dev';
+const out=path.resolve('public'),base='https://simple-tools-22i.pages.dev';
 const tools=[
 {id:'food',cat:'hospitality',esSlug:'coste-plato',enSlug:'food-cost',esTitle:'Calculadora de coste de plato y food cost',enTitle:'Food Cost Calculator',esDesc:'Calcula coste por ración, food cost, margen y precio recomendado.',enDesc:'Calculate cost per serving, food cost, margin and recommended selling price.'},
 {id:'job',cat:'trades',esSlug:'precio-trabajo',enSlug:'job-pricing',esTitle:'Calculadora de precio de trabajos',enTitle:'Job Pricing Calculator',esDesc:'Calcula cuánto cobrar por un trabajo con costes, imprevistos y margen.',enDesc:'Calculate what to charge for a job including costs, contingency and margin.'},
