@@ -12,7 +12,7 @@ test('home search, filters and language switch', async ({ page }) => {
   await page.locator('#tool-search').fill('devoluciones');
   await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);
   await expect(page.locator('.card[data-category]:not([hidden])')).toContainText('margen de producto');
-  await page.getByRole('link', { name: 'EN' }).click();
+  await page.locator('a.lang').click();
   await expect(page).toHaveURL(/\/en\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 });
