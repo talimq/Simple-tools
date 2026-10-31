@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+async function waitReady(page){await expect(page.locator('body')).toHaveAttribute('data-ready','true')}
+
 test('home search, filters and language switch', async ({ page }) => {
   await page.goto('/es/');
+  await waitReady(page);
   await expect(page.locator('.card[data-category]')).toHaveCount(7);
   await page.getByRole('button', { name: 'Restauración' }).click();
   await expect(page.locator('.card[data-category]:visible')).toHaveCount(1);
@@ -16,6 +19,7 @@ test('home search, filters and language switch', async ({ page }) => {
 
 test('dynamic rows persist after reload', async ({ page }) => {
   await page.goto('/es/herramientas/coste-plato/');
+  await waitReady(page);
   await page.getByRole('button', { name: 'Añadir línea' }).click();
   const rows = page.locator('#foodRows [data-row]');
   await expect(rows).toHaveCount(2);
@@ -29,6 +33,7 @@ test('dynamic rows persist after reload', async ({ page }) => {
 
 test('family calculator supports second child', async ({ page }) => {
   await page.goto('/es/herramientas/gastos-familiares/');
+  await waitReady(page);
   await expect(page.getByRole('heading', { name: 'Hijo 2 (opcional)' })).toBeVisible();
   await expect(page.locator('#familyRows2 [data-row]')).toHaveCount(1);
   await page.locator('#familyRows2 [data-name="amount"]').fill('120');
@@ -40,6 +45,7 @@ test('family calculator supports second child', async ({ page }) => {
 
 test('invalid values show validation feedback', async ({ page }) => {
   await page.goto('/es/herramientas/margen-producto/');
+  await waitReady(page);
   await page.locator('#productCost').fill('-1');
   await page.getByRole('button', { name: 'Calcular' }).click();
   await expect(page.locator('#validation')).toBeVisible();
@@ -48,6 +54,7 @@ test('invalid values show validation feedback', async ({ page }) => {
 
 test('renovation calculator has no horizontal overflow on mobile', async ({ page }) => {
   await page.goto('/es/herramientas/presupuesto-reforma/');
+  await waitReady(page);
   const width = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(width.scroll).toBeLessThanOrEqual(width.client);
   await expect(page.getByRole('button', { name: 'Añadir línea' })).toBeVisible();
