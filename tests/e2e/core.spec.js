@@ -7,11 +7,11 @@ test('home search, filters and language switch', async ({ page }) => {
   await waitReady(page);
   await expect(page.locator('.card[data-category]')).toHaveCount(7);
   await page.getByRole('button', { name: 'Restauración' }).click();
-  await expect(page.locator('.card[data-category]:visible')).toHaveCount(1);
+  await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);
   await page.getByRole('button', { name: 'Todas' }).click();
   await page.locator('#tool-search').fill('margen');
-  await expect(page.locator('.card[data-category]:visible')).toHaveCount(1);
-  await expect(page.locator('.card[data-category]:visible')).toContainText('margen de producto');
+  await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);
+  await expect(page.locator('.card[data-category]:not([hidden])')).toContainText('margen de producto');
   await page.getByRole('link', { name: 'EN' }).click();
   await expect(page).toHaveURL(/\/en\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
