@@ -4,10 +4,11 @@ export default defineConfig({
   testDir: './tests/e2e',
   use: {
     baseURL: 'http://127.0.0.1:4173',
-    viewport: { width: 390, height: 844 }
+    viewport: { width: 390, height: 844 },
+    launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } : undefined
   },
   webServer: {
-    command: 'python3 -m http.server 4173 -d public',
+    command: `"${process.execPath}" scripts/serve-public.mjs`,
     url: 'http://127.0.0.1:4173/es/',
     reuseExistingServer: true
   }

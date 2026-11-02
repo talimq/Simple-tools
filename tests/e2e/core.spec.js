@@ -8,6 +8,10 @@ test('home search, filters and language switch', async ({ page }) => {
   await expect(page.locator('.card[data-category]')).toHaveCount(7);
   await page.getByRole('button', { name: 'Restauración' }).click();
   await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);
+  await expect(page.getByRole('button', { name: 'Restauración' })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Empresa / RRHH' }).click();
+  await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);
+  await expect(page.locator('.card[data-category]:not([hidden]) h3')).toContainText('empleado');
   await page.getByRole('button', { name: 'Todas' }).click();
   await page.locator('#tool-search').fill('devoluciones');
   await expect(page.locator('.card[data-category]:not([hidden])')).toHaveCount(1);

@@ -1,4 +1,4 @@
-# Simple Tools
+# HandyFigs
 
 Bilingual (ES/EN) static collection of small professional calculators. All calculations happen in the browser; no user-entered calculation data is sent to a server.
 
@@ -29,7 +29,7 @@ Serve the `public` directory with any static server.
 - Output directory: `public`
 - Node: 22 recommended
 
-The current canonical base URL is `https://simple-tools.pages.dev`. Change `base` in `scripts/generate-pages.js` when a real domain is chosen, then rebuild.
+The canonical base URL is `https://handyfigs.com`.
 
 ## Structure
 
