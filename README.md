@@ -1,53 +1,46 @@
 # HandyFigs
 
-Bilingual (ES/EN) static collection of small professional calculators. All calculations happen in the browser; no user-entered calculation data is sent to a server.
+Free, bilingual (Spanish/English) calculators for small business and household expenses.
+All calculator inputs remain in the browser. No accounts or runtime dependencies are needed.
 
-## Stack
+## Local checks and build
 
-- Static HTML/CSS
-- Vanilla ES modules
-- Pure calculation functions in `public/assets/calculators.js`
-- Node built-in test runner
-- Generated localized routes for SEO
-- No runtime dependencies
-
-## Run locally
-
-Generate/verify the site:
-
-```bash
-npm run build
-npm test
+```sh
 npm run check
+npm test
+npm run build
 ```
 
-Serve the `public` directory with any static server.
+Serve `public/` after building. `npm run test:e2e` runs Playwright on desktop and mobile projects; install development dependencies and Chromium first. CI runs this suite automatically.
 
 ## Cloudflare Pages
 
+- Repository: `talimq/Simple-tools`, branch `main`
 - Build command: `npm run build`
 - Output directory: `public`
-- Node: 22 recommended
+- Node: 22
+- Canonical production origin: `https://handyfigs.com`
 
-The canonical base URL is `https://handyfigs.com`.
+The generator writes 16 localized canonical pages, a root fallback, a 404 page,
+`sitemap.xml`, `robots.txt`, and a Cloudflare `_redirects` root rule.
+Generated output is ignored by Git; Pages builds from the checked-in sources.
+Custom-domain binding, HTTPS and hostname redirects are configured in Cloudflare.
 
-## Structure
+## Source layout
 
-- `public/assets/calculators.js` — pure deterministic calculation functions
-- `public/assets/app.js` — browser UI, filters, dynamic rows, persistence, calculations
-- `public/assets/styles.css` — responsive styling
-- `scripts/generate-pages.js` — ES/EN static page generator
-- `tests/calculators.test.js` — unit tests
+- `public/assets/calculators.js`: pure calculation functions
+- `public/assets/app.js`: filtering, forms, browser-local persistence and results
+- `public/assets/styles.css`: responsive styles
+- `scripts/generate-pages.js`: localized static pages and crawl files
+- `scripts/seo-content.js`: visible worked examples, formulas and specific FAQs
+- `tests/calculators.test.js`: calculation tests
+- `tests/seo.test.js`: metadata, alternates, sitemap, structured data and crawl controls
+- `tests/e2e/core.spec.js`: rendered filtering, navigation, calculations and persistence
+- `docs/seo-launch.md`: launch configuration and next actions
 
-## Analytics
+## Scope and limitations
 
-Cloudflare Web Analytics can be enabled at the Pages/project level without changing the application.
-
-## Limitations / roadmap
-
-- No accounts or server storage.
-- No paid PDF/export yet.
-- Employee cost is configurable, not an official country-specific payroll calculator.
-- Family expenses is a mathematical expense simulator, not a legal support calculator.
-- Rental yield is economic, not tax advice.
-- Currency is EUR for v1.
+Family expenses simulates a mathematical split and does not determine legal support.
+Employee cost uses configurable estimates, not official payroll rates. Rental yield
+is an economic model, not a tax calculation. All money is in EUR. Tools are currently
+free; there are no paid exports, subscriptions or server-side storage.

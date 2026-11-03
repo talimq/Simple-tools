@@ -1,0 +1,13 @@
+node_modules/
+playwright-report/
+test-results/
+public/es/
+public/en/
+public/index.html
+public/sitemap.xml
+public/robots.txt
+public/__qa__/
+dist/
+public/404.html
+public/_redirects
+.openai/
