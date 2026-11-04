@@ -8,7 +8,8 @@ console.log('Static build verified: 7 tools in ES and EN, sitemap and robots pre
 
 // Verify the generated navigation and asset URLs, including every language pair.
 function htmlFiles(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?htmlFiles(`${dir}/${entry.name}`):entry.name.endsWith('.html')?[`${dir}/${entry.name}`]:[])}
-const pages=htmlFiles('public').filter(file=>!file.includes('/__qa__/'));
+// Ownership verification documents are not generated navigation pages.
+const pages=htmlFiles('public').filter(file=>!file.includes('/__qa__/')&&(file.endsWith('/index.html')||file==='public/404.html'));
 for(const file of pages){
   const html=fs.readFileSync(file,'utf8');
   for(const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)){
