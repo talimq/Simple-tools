@@ -15,16 +15,23 @@ Launch preparation: 3 November 2026. The owner approved public publication after
 - Sitemap contains only the 16 localized canonical pages. Robots references the sitemap.
 - Root redirects to /es/ in Cloudflare Pages. A real 404 document prevents unknown URLs from becoming soft 404 home pages.
 
-## External launch configuration to verify
+## Production domains and redirects
 
-1. Bind handyfigs.com to the existing simple-tools Pages project and verify HTTPS.
-2. Add www.handyfigs.com and redirect it to the apex domain, preserving path and query string.
-3. Only after the custom domain works, redirect simple-tools-22i.pages.dev to https://handyfigs.com with Cloudflare Bulk Redirects. Preserve path suffix and query string. Do not redirect preview deployments blindly.
-4. Add and verify the sc-domain:handyfigs.com property in Google Search Console, then submit https://handyfigs.com/sitemap.xml.
-5. Inspect one home page and representative calculators in both languages. A submitted sitemap or indexing request does not guarantee indexing.
-6. Record the date of the successful custom-domain launch; use it as the baseline for future performance comparisons.
+The custom domain https://handyfigs.com/es/ was confirmed serving the production site over HTTPS on 4 November 2026. Both www.handyfigs.com and simple-tools-22i.pages.dev also resolve to the same Pages project.
 
-Domain and indexing status must be confirmed in their providers; this file is a configuration handover, not proof of those external steps.
+`functions/_middleware.js` redirects only those two production aliases to https://handyfigs.com with HTTP 301, retaining the path and query string. Root requests go directly to /es/, including when arriving through an alias. Preview hostnames retain their own host. Canonical pages, ownership verification documents and unknown paths continue through Pages' normal static handling.
+
+The middleware is deployed through the existing GitHub-to-Pages integration. It requires no new paid browser service or Cloudflare plan upgrade. Pages Functions share the Workers Free allowance of 100,000 requests per day; `public/_routes.json` excludes /assets/* so those files remain purely static. If traffic eventually approaches the free function allowance, use Cloudflare's free Bulk Redirects at the account level and remove this middleware. Do not enable a paid plan automatically.
+
+## Search Console: still pending
+
+The exact Google ownership document is deployed at /google0966770103d5e696.html. Its presence alone does not mean that Google has verified the property.
+
+1. Complete verification of the URL-prefix property https://handyfigs.com/ in the owner's Google account, then submit https://handyfigs.com/sitemap.xml.
+2. Inspect one home page and representative calculators in both languages. A submitted sitemap or indexing request does not guarantee indexing.
+3. Use 4 November 2026 as the custom-domain launch baseline for future performance comparisons.
+
+Verification and sitemap submission have not yet been confirmed. The site remains crawlable without Search Console, with its canonical sitemap referenced in robots.txt.
 
 ## First content priorities
 
